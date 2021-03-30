@@ -65,8 +65,6 @@ def get_random_education_level(age):
         weights = weights[0:5]
     else:
         pass
-    print(education_levels)
-    print(weights)
     education_level = choices(education_levels,weights)[0]
     return education_level
 #Returns a random number of habitants per house based on the probability distribution from the survey
@@ -152,58 +150,62 @@ def get_random_riskFactor():
         if randomProb<10.3:
             return "entry.925426602=Embarazo&"
 #General random results
-random_age = get_random_age()
-random_province = get_random_province()
-random_education = get_random_education_level(random_age)
-random_habitants = get_random_habitantsPerHouse()
-random_income = get_random_Income()
-interact_risk_factor = with_riskFactor()
-selfcare_reason = get_random_selfcare_motivation()
-times_leaves_house = get_random_departures_from_home()
-conclusion_vaccination = get_random_conclusion_after_vaccination()
+def generateForms(quantity):
+    i= 0
+    for i in range(quantity):
 
-#Probability of interacting with someone with risk factors
-url= ""
-if interact_risk_factor:
-    print("Hay")
-    #se relaciona con personas de riesgo
-    number_of_people_interacts = get_random_risk_people()
-    print(number_of_people_interacts)
-    #formResponse
-    url = f'https://docs.google.com/forms/d/e/1FAIpQLSc5IoP6g9TtNkK9kBFp8VYlysEDfQ8Ij8gHwkMBut2aAMjJ8A/viewform?usp=pp_url&'\
-        f'entry.1488779718={random_age}&'\
-        f'entry.935746347={random_province}&'\
-        f'entry.926861655={random_education}&'\
-        f'entry.985634184={random_habitants}&'\
-        f'entry.1148479870={random_income}&'\
-        f'entry.253307569=S%C3%AD&'\
-        f'entry.1517196595={number_of_people_interacts}&'
-    i=0
-    for i in range(number_of_people_interacts):
-        riskFactor = get_random_riskFactor()
-        url=url+riskFactor
-    end_string =f'entry.900018422={selfcare_reason}&'\
-                f'entry.826941713={times_leaves_house}&'\
-                f'entry.602591205={conclusion_vaccination}&'\
-                f'submit=Submit'
-    url=url+end_string
-else:
-        print("No Hay")
-      #No se relaciona con personas de riesgo
-        url =   "https://docs.google.com/forms/d/e/1FAIpQLSc5IoP6g9TtNkK9kBFp8VYlysEDfQ8Ij8gHwkMBut2aAMjJ8A/viewform?"\
-            f"entry.1488779718={random_age}&"\
-            f"entry.935746347={random_province}&"\
-            f"entry.926861655={random_education}&"\
-            f"entry.985634184={random_habitants}&"\
-            f"entry.1148479870={random_income}&"\
-            f"entry.253307569=No&"\
-            f"entry.900018422={selfcare_reason}&"\
-            f"entry.826941713={times_leaves_house}&"\
-            f"entry.602591205={conclusion_vaccination}&"\
-            #"submit=Submit"   
+        random_age = get_random_age()
+        random_province = get_random_province()
+        random_education = get_random_education_level(random_age)
+        random_habitants = get_random_habitantsPerHouse()
+        random_income = get_random_Income()
+        interact_risk_factor = with_riskFactor()
+        selfcare_reason = get_random_selfcare_motivation()
+        times_leaves_house = get_random_departures_from_home()
+        conclusion_vaccination = get_random_conclusion_after_vaccination()
+
+        #Probability of interacting with someone with risk factors
+        url= ""
+        if interact_risk_factor:
+            print("Hay")
+            #se relaciona con personas de riesgo
+            number_of_people_interacts = get_random_risk_people()
+            print(number_of_people_interacts)
+            #formResponse
+            url = f'https://docs.google.com/forms/d/e/1FAIpQLSc5IoP6g9TtNkK9kBFp8VYlysEDfQ8Ij8gHwkMBut2aAMjJ8A/formResponse?usp=pp_url&'\
+                f'entry.1488779718={random_age}&'\
+                f'entry.935746347={random_province}&'\
+                f'entry.926861655={random_education}&'\
+                f'entry.985634184={random_habitants}&'\
+                f'entry.1148479870={random_income}&'\
+                f'entry.253307569=S%C3%AD&'\
+                f'entry.1517196595={number_of_people_interacts}&'
+            i=0
+            for i in range(number_of_people_interacts):
+                riskFactor = get_random_riskFactor()
+                url=url+riskFactor
+            end_string =f'entry.900018422={selfcare_reason}&'\
+                        f'entry.826941713={times_leaves_house}&'\
+                        f'entry.602591205={conclusion_vaccination}&'\
+                        f'submit=Submit'
+            url=url+end_string
+        else:
+                print("No Hay")
+            #No se relaciona con personas de riesgo
+                url =   "https://docs.google.com/forms/d/e/1FAIpQLSc5IoP6g9TtNkK9kBFp8VYlysEDfQ8Ij8gHwkMBut2aAMjJ8A/formResponse?"\
+                    f"entry.1488779718={random_age}&"\
+                    f"entry.935746347={random_province}&"\
+                    f"entry.926861655={random_education}&"\
+                    f"entry.985634184={random_habitants}&"\
+                    f"entry.1148479870={random_income}&"\
+                    f"entry.253307569=No&"\
+                    f"entry.900018422={selfcare_reason}&"\
+                    f"entry.826941713={times_leaves_house}&"\
+                    f"entry.602591205={conclusion_vaccination}&"\
+                    "submit=Submit"   
+        requests.post(url)
 
 
-print(url)
-# # #Requests.post(url)
 
-
+quantity = int(input("Cuantos forms desea generar?"))
+generateForms(quantity)
