@@ -43,13 +43,30 @@ def get_random_province():
     province = choices(population,weights)[0]
     return province
 #Returns a random education level based on the probability distribution from the survey
-def get_random_education_level():
-
+def get_random_education_level(age):
     #education_level probability distribution
     #education_levels
     education_levels = ["Nulo","Escuela","Bachillerato+9%C2%B0","Bachillerato+11%C2%B0","Bachillerato+Universitario","Licenciatura"]
     #Probability of education_level
     weights = [0.002,0.005,0.026,0.398,0.288,0.281]
+   
+    #Adjusts to match the current age with an acceptable education level
+    if age<=15:
+        print("menor de 15")
+        education_levels = education_levels[0:3]
+        weights = weights[0:3]
+    elif age<=18:
+        print("menor de 18")
+        education_levels = education_levels[0:4]
+        weights = weights[0:4]
+    elif age<=23:
+        print("menor de 23")
+        education_levels = education_levels[0:5]
+        weights = weights[0:5]
+    else:
+        pass
+    print(education_levels)
+    print(weights)
     education_level = choices(education_levels,weights)[0]
     return education_level
 #Returns a random number of habitants per house based on the probability distribution from the survey
@@ -137,7 +154,7 @@ def get_random_riskFactor():
 #General random results
 random_age = get_random_age()
 random_province = get_random_province()
-random_education = get_random_education_level()
+random_education = get_random_education_level(random_age)
 random_habitants = get_random_habitantsPerHouse()
 random_income = get_random_Income()
 interact_risk_factor = with_riskFactor()
