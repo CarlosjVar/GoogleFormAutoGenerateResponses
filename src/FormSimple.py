@@ -7,6 +7,7 @@ import sys
 import random
 from random import choices
 from collections import Counter
+import webbrowser
 
 
 #Returns a random age based on the probability distribution from the survey
@@ -51,18 +52,21 @@ def get_random_education_level(age):
     weights = [0.002,0.005,0.026,0.398,0.288,0.281]
    
     #Adjusts to match the current age with an acceptable education level
-    if age<=15:
+    if age<=16:
         print("menor de 15")
         education_levels = education_levels[0:3]
         weights = weights[0:3]
-    elif age<=18:
+        print(education_levels)
+    elif age<=20:
         print("menor de 18")
         education_levels = education_levels[0:4]
         weights = weights[0:4]
+        print(education_levels)
     elif age<=23:
         print("menor de 23")
         education_levels = education_levels[0:5]
         weights = weights[0:5]
+        print(education_levels)
     else:
         pass
     education_level = choices(education_levels,weights)[0]
@@ -172,7 +176,7 @@ def generateForms(quantity):
             number_of_people_interacts = get_random_risk_people()
             print(number_of_people_interacts)
             #formResponse
-            url = f'https://docs.google.com/forms/d/e/1FAIpQLSc5IoP6g9TtNkK9kBFp8VYlysEDfQ8Ij8gHwkMBut2aAMjJ8A/formResponse?usp=pp_url&'\
+            url = f'https://docs.google.com/forms/d/e/1FAIpQLSc5IoP6g9TtNkK9kBFp8VYlysEDfQ8Ij8gHwkMBut2aAMjJ8A/viewform?usp=pp_url&'\
                 f'entry.1488779718={random_age}&'\
                 f'entry.935746347={random_province}&'\
                 f'entry.926861655={random_education}&'\
@@ -192,7 +196,7 @@ def generateForms(quantity):
         else:
                 print("No Hay")
             #No se relaciona con personas de riesgo
-                url =   "https://docs.google.com/forms/d/e/1FAIpQLSc5IoP6g9TtNkK9kBFp8VYlysEDfQ8Ij8gHwkMBut2aAMjJ8A/formResponse?"\
+                url ="https://docs.google.com/forms/d/e/1FAIpQLSc5IoP6g9TtNkK9kBFp8VYlysEDfQ8Ij8gHwkMBut2aAMjJ8A/viewform?"\
                     f"entry.1488779718={random_age}&"\
                     f"entry.935746347={random_province}&"\
                     f"entry.926861655={random_education}&"\
@@ -203,7 +207,10 @@ def generateForms(quantity):
                     f"entry.826941713={times_leaves_house}&"\
                     f"entry.602591205={conclusion_vaccination}&"\
                     "submit=Submit"   
-        requests.post(url)
+        
+        #requests.post(url)
+        webbrowser.open(url, new=0)
+        print(url)
 
 
 
