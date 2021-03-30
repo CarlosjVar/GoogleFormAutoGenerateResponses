@@ -11,6 +11,7 @@ from collections import Counter
 
 #Returns a random age based on the probability distribution from the survey
 def get_random_age():
+
     #Age probability distribution
     #Number of age groups
     population = [0,1,2,3,4,5,6,7]
@@ -32,6 +33,7 @@ def get_random_age():
     return switcher.get(agegroup,"nothing")
 #Returns a random province based on the probability distribution from the survey
 def get_random_province():
+
     #Province probability distribution
     #Provinces
     population = ["San+Jos%C3%A9","Heredia","Alajuela","Cartago","Lim%C3%B3n","Puntarenas","Guanacaste"]
@@ -42,6 +44,7 @@ def get_random_province():
     return province
 #Returns a random education level based on the probability distribution from the survey
 def get_random_education_level():
+
     #education_level probability distribution
     #education_levels
     education_levels = ["Nulo","Escuela","Bachillerato+9%C2%B0","Bachillerato+11%C2%B0","Bachillerato+Universitario","Licenciatura"]
@@ -51,6 +54,7 @@ def get_random_education_level():
     return education_level
 #Returns a random number of habitants per house based on the probability distribution from the survey
 def get_random_habitantsPerHouse():
+
     #habitantsPerHouse probability distribution
     #habitantsPerHouse
     habitantsPerHouse = [1,2,3,4,5,6,7,8,10]
@@ -60,6 +64,7 @@ def get_random_habitantsPerHouse():
     return result
 #Returns a random income range based on the probability distribution from the survey
 def get_random_Income():
+
     #Income probability distribution
     #Income ranges
     income_groups= ["Menos+de+%C2%A2300000","De+%C2%A2300000+a+%C2%A2700000","De+%C2%A2700000+a+%C2%A21200000","M%C3%A1s+de+%C2%A21200000"]
@@ -68,6 +73,7 @@ def get_random_Income():
     return result
 #Returns if a person interacts with people with risk factors, based on the data from the survey
 def with_riskFactor():
+
     #Probability of interacting with someone with risk factos
     prob= 0.671
     interacts=[True,False]
@@ -75,6 +81,7 @@ def with_riskFactor():
     return choices(interacts,weights)[0]
 #Return a random reason of the selfcare of a person based on the data from the survey
 def get_random_selfcare_motivation():
+
     #Probability of a given reason of the self care during the pandemic
     reasons = ["su+salud","la+salud+de+los+dem%C3%A1s","Ambas"]
     weights = [0.057,0.234,0.708]
@@ -82,18 +89,51 @@ def get_random_selfcare_motivation():
 #Returns a random number of time a person leaves the house based on the data from the survey
 def get_random_departures_from_home():
     #Number of times a person leaves the house for non educational/work reasons
-    times = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,15,20,30]
-    weights = [0.029,0.077,0.16,0.138,0.183,0.093,0.077,0.053,0.036,0.007,0.048,0.002,0.019,0.001,0.036,0.002,0.01] 
+    times = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,15]
+    weights = [0.029,0.077,0.16,0.138,0.183,0.093,0.077,0.053,0.036,0.007,0.048,0.002,0.019,0.001,0.036] 
     return choices(times,weights)[0]
 #Returns what a person's going to do after the 3rd group of vaccinations get vaccinated
+
 def get_random_conclusion_after_vaccination():
     #Conclusions
     conclusions = ["Aumentar%C3%A1+las+veces+que+salga","Saldr%C3%A9+igual","Saldr%C3%A9+menos"]
     weights = [0.354,0.622,0.024]
     return choices(conclusions,weights)[0]
 
+#Returns a random number of people who the surveyed person relations with based on the data from the survey
+def get_random_risk_people():
+    number_people = [1,2,3,4,5,6,8,10]
+    weights = [0.313,0.298,0.209,0.113,0.053,0.004,0.004,0.007]
+    return choices(number_people,weights)[0]
 
-
+#Returns a random risk factor based on the data from the survey
+def get_random_riskFactor():
+    #Possible Risk Factors 
+    while True:
+        randomProb = random.randint(0,100)
+        if randomProb<66:
+            return "entry.925426602=Avanzada+edad&"
+        randomProb = random.randint(0,100)
+        if randomProb<49.3:
+            return "entry.925426602=Hipertensi%C3%B3n&"
+        randomProb = random.randint(0,100)
+        if randomProb<27.7:
+            return "entry.925426602=Obesidad&"
+        randomProb = random.randint(0,100)
+        if randomProb<36.2:
+            return "entry.925426602=Diabetes&"
+        randomProb = random.randint(0,100)
+        if randomProb<24.8:
+            return "entry.925426602=Asma&"
+        randomProb = random.randint(0,100)
+        if randomProb<9.6:
+            return "entry.925426602=Padecimientos+pulmonares&"
+        randomProb = random.randint(0,100)
+        if randomProb<14.2:
+            return "entry.925426602=Sistema+inmunol%C3%B3gico+deficiente&"
+        randomProb = random.randint(0,100)
+        if randomProb<10.3:
+            return "entry.925426602=Embarazo&"
 #General random results
 random_age = get_random_age()
 random_province = get_random_province()
@@ -107,32 +147,32 @@ conclusion_vaccination = get_random_conclusion_after_vaccination()
 
 #Probability of interacting with someone with risk factors
 url= ""
-if False:
+if interact_risk_factor:
+    print("Hay")
     #se relaciona con personas de riesgo
-    print("riesgo")
-    url = f'https://docs.google.com/forms/d/e/1FAIpQLSc5IoP6g9TtNkK9kBFp8VYlysEDfQ8Ij8gHwkMBut2aAMjJ8A/formResponse?usp=pp_url&'\
-        f'entry.1488779718={random_age}'\
+    number_of_people_interacts = get_random_risk_people()
+    print(number_of_people_interacts)
+    #formResponse
+    url = f'https://docs.google.com/forms/d/e/1FAIpQLSc5IoP6g9TtNkK9kBFp8VYlysEDfQ8Ij8gHwkMBut2aAMjJ8A/viewform?usp=pp_url&'\
+        f'entry.1488779718={random_age}&'\
         f'entry.935746347={random_province}&'\
         f'entry.926861655={random_education}&'\
         f'entry.985634184={random_habitants}&'\
         f'entry.1148479870={random_income}&'\
         f'entry.253307569=S%C3%AD&'\
-        f'entry.1517196595=2&'
-    Adv_edad = "entry.925426602=Avanzada+edad&"
-    hipertension = 'entry.925426602=Hipertensi%C3%B3n&'
-    Obesidad = 'entry.925426602=Obesidad&'
-    Diabtes = 'entry.925426602=Diabetes'
-    Asma = '&entry.925426602=Asma&'
-    pulmonares = 'entry.925426602=Padecimientos+pulmonares&'
-    VIH = 'entry.925426602=Sistema+inmunol%C3%B3gico+deficiente&'
-    embarazo = 'entry.925426602=Embarazo&'
-    end_string =f'entry.900018422=su+salud&'\
-                f'entry.826941713=2&'\
-                f'entry.602591205=Saldr%C3%A9+igual&'\
+        f'entry.1517196595={number_of_people_interacts}&'
+    i=0
+    for i in range(number_of_people_interacts):
+        riskFactor = get_random_riskFactor()
+        url=url+riskFactor
+    end_string =f'entry.900018422={selfcare_reason}&'\
+                f'entry.826941713={times_leaves_house}&'\
+                f'entry.602591205={conclusion_vaccination}&'\
                 f'submit=Submit'
+    url=url+end_string
 else:
+        print("No Hay")
       #No se relaciona con personas de riesgo
-        print("No riesgo")
         url =   "https://docs.google.com/forms/d/e/1FAIpQLSc5IoP6g9TtNkK9kBFp8VYlysEDfQ8Ij8gHwkMBut2aAMjJ8A/viewform?"\
             f"entry.1488779718={random_age}&"\
             f"entry.935746347={random_province}&"\
@@ -144,16 +184,6 @@ else:
             f"entry.826941713={times_leaves_house}&"\
             f"entry.602591205={conclusion_vaccination}&"\
             #"submit=Submit"   
-            #EDAD
-            #PROVINCIA
-            #Escolaridad
-            #Personas en vivienda
-            #Ingresos
-            #Se relaciona con personas con factores de riesgo
-            #Razón de cuidados
-            #Días de salida
-            #Qué hará luego
-
 
 
 print(url)
